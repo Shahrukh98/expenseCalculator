@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for XpenseCalc",
+  "main": "index.js",
+  "author": "Neo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
