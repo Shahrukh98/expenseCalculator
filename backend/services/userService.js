@@ -5,15 +5,14 @@ class UserService {
     this.userRepository = userRepository;
   }
 
-  async createUser(username, email, password) {
+  async createUser(username, nickname, email, password) {
     const hashedPass = await hashPassword(password);
-    return this.userRepository.createUser(username, email, hashedPass);
+    return this.userRepository.createUser(username, nickname, email, hashedPass);
   }
   
   async loginUser(email, password){
     try {  
       const user = await this.userRepository.getUserByEmail(email);
-      console.log(password, user?.password)
       const isPasswordCorrect = await comparePasswords(password, user?.password);
 
       if(!isPasswordCorrect){

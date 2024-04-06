@@ -7,9 +7,9 @@ const userRepo = new UserRepository();
 const userService = new UserService(userRepo)
 
 router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, nickname, email, password } = req.body;
   try {
-    const newUser = await userService.createUser(username, email, password);
+    const newUser = await userService.createUser(username, nickname, email, password);
     res.status(201).json(newUser);
   } catch (error) {
     if (error?.code == "23505"){
@@ -22,7 +22,6 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
-    console.log(email);
     const user = await userService.loginUser(email, password);
     res.status(200).json(user);
   } catch (error) {
@@ -39,23 +38,21 @@ router.get('/:id', async (req, res) => {
   try {
     const user = await userService.getUserById(userId);
     if (user) {
-      res.json(user);
+      return res.json(user);
     } else {
-      res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
-    console.error('Error fetching user by ID:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 router.get('/', async (req, res) => {
   try {
     const users = await userService.getAllUsers();
-    res.json(users);
+    return res.json(users);
   } catch (error) {
-    console.error('Error fetching all users:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 

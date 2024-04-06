@@ -1,11 +1,11 @@
 const pool = require("../database/connection");
 
 class UserRepository {
-  async createUser(username, email, password) {
+  async createUser(username, nickname, email, password) {
     const client = await pool.connect();
     try {
-      const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *';
-      const values = [username, email, password];
+      const query = 'INSERT INTO users (name, nickname, email, password) VALUES ($1, $2, $3, $4) RETURNING *';
+      const values = [username, nickname, email, password];
       const result = await client.query(query, values);
       
       delete result.rows[0].password;

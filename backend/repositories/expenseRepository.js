@@ -27,7 +27,6 @@ class ExpenseRepository {
   async getAllUserExpenses(user_id) {
     const client = await pool.connect();
     try {
-      console.log(user_id);
       const query = 'SELECT * FROM expenses where user_id = $1';
       const result = await client.query(query,[user_id]);
       return result.rows;
@@ -35,6 +34,18 @@ class ExpenseRepository {
       client.release();
     }
   }
+
+  async getUserSummary(user_id) {
+    const client = await pool.connect();
+    try {
+      const query = 'SELECT category, sum(amount) FROM expenses where user_id = $1 group by category';
+      const result = await client.query(query,[user_id]);
+      return result.rows;
+    } finally {
+      client.release();
+    }
+  }
+
 }
 
 module.exports = ExpenseRepository;
