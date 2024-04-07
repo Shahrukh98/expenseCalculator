@@ -4,7 +4,7 @@ This repository contains the frontend and backend code for Xpense Calculator. Th
 
 ## Getting Started
 
-Make sure that you have npm installed on your machine. Use the .env.example to make your .env file to run the code locally. Here's how you can set it up locally:
+Make sure that you have npm installed on your machine. Use the .env.example to make your .env file to run the code locally. Also make sure you have database setup and make the table using the queries in the migration directory. Here's how you can set it up locally:
 
 ### Backend (Node.js)
 
